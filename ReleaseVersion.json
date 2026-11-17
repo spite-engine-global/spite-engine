@@ -1,0 +1,11 @@
+{
+  "format": 1,
+  "version": "0.2.6",
+  "policy": "Before 1.0, breaking changes and additions require a minor release; fixes require a patch release. No 1.0 stability is promised.",
+  "patchAdditions": {
+    "approval": "backlog/inbox/2026-11-16-sdk026-patch-additions-record.md",
+    "changes": [
+      "sdk026-additive-surfaces"
+    ]
+  }
+}

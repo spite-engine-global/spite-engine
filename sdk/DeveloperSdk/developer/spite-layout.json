@@ -1,0 +1,10 @@
+{
+  "userConfig": "@pref/DeveloperSdk/config/user",
+  "saves": "@pref/DeveloperSdk/saves",
+  "scenes": "@pref/DeveloperSdk/scenes",
+  "cache": "@pref/DeveloperSdk/cache",
+  "shadows": "@pref/DeveloperSdk/shadow-copies",
+  "crashes": "@pref/DeveloperSdk/crashes",
+  "artifacts": "@pref/DeveloperSdk/artifacts",
+  "control": "@pref/DeveloperSdk/control"
+}

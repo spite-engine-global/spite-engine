@@ -1,0 +1,31 @@
+{
+  "project": "SandboxGame",
+  "title": "Verify the Sandbox HUD after a gameplay edit",
+  "inspect": {
+    "summary": "Inspect the score display and the starting score.",
+    "why": "Players rely on the HUD for immediate feedback."
+  },
+  "apply": {
+    "summary": "Build and reload the edited SandboxGame module.",
+    "why": "Check the HUD against the binary that contains the gameplay change."
+  },
+  "review": {
+    "summary": "Check HUD visibility and the score reported by the game.",
+    "why": "Together these cover the visible HUD and its initial game state."
+  },
+  "checks": [
+    {
+      "label": "Score HUD is visible",
+      "query": "uiTree",
+      "args": {"root": "sandbox.score", "depth": 0},
+      "pointer": "/tree/0/visible",
+      "equals": true
+    },
+    {
+      "label": "Fresh session starts at score zero",
+      "query": "sandboxStatus",
+      "pointer": "/score",
+      "equals": 0
+    }
+  ]
+}

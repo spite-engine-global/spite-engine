@@ -1,0 +1,16 @@
+cmake_minimum_required(VERSION 3.25)
+project(RenderConsumer LANGUAGES CXX)
+
+set(SPITE_SDK "" CACHE PATH "Path to the staged SPITE SDK")
+set(SPITE_COOKED_SDK "" CACHE PATH "Path to the cooked SDK for a standalone game build")
+
+if(SPITE_COOKED_SDK)
+    find_package(SpiteCooked CONFIG REQUIRED PATHS "${SPITE_COOKED_SDK}/cmake" NO_DEFAULT_PATH)
+    add_executable(RenderConsumer CookedMain.cpp RenderConsumer.cpp)
+    spite_configure_cooked_game(RenderConsumer)
+else()
+    find_package(Spite CONFIG REQUIRED PATHS "${SPITE_SDK}/cmake" NO_DEFAULT_PATH)
+    add_library(RenderConsumer MODULE RenderConsumer.cpp)
+    spite_configure_module(RenderConsumer)
+    target_link_libraries(RenderConsumer PRIVATE Spite::Base Spite::Ecs Spite::Control Spite::Rendering)
+endif()

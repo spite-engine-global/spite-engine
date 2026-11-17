@@ -1,0 +1,77 @@
+get_filename_component(Spite_SDK_ROOT "${CMAKE_CURRENT_LIST_DIR}/.." ABSOLUTE)
+if(NOT CMAKE_SYSTEM_NAME STREQUAL "Linux" OR NOT CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64" OR
+   NOT CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    set(Spite_FOUND FALSE)
+    set(Spite_NOT_FOUND_MESSAGE "This SPITE SDK requires Linux x86-64 and the matching GNU C++ toolchain")
+    return()
+endif()
+
+function(_spite_check_sdk_abi)
+    include(CheckCXXSourceCompiles)
+    set(CMAKE_CXX_STANDARD 23)
+    set(CMAKE_CXX_STANDARD_REQUIRED ON)
+    set(CMAKE_REQUIRED_INCLUDES "${Spite_SDK_ROOT}/include/spite")
+    set(CMAKE_REQUIRED_DEFINITIONS "-DSPITE_DEBUG_BUILD=0")
+    unset(_spite_abi_matches CACHE)
+    check_cxx_source_compiles([=[
+        #include <string_view>
+        #include "base/ModuleAbi.hpp"
+        static_assert(std::string_view(SPITE_TOOLSET_STAMP) == "@TOOLSET@");
+        int main() {}
+    ]=] _spite_abi_matches)
+    set(Spite_ABI_MATCHES "${_spite_abi_matches}" PARENT_SCOPE)
+    unset(_spite_abi_matches CACHE)
+endfunction()
+
+_spite_check_sdk_abi()
+if(NOT Spite_ABI_MATCHES)
+    set(Spite_FOUND FALSE)
+    set(Spite_NOT_FOUND_MESSAGE "SPITE SDK requires C++ ABI @TOOLSET@")
+    return()
+endif()
+
+
+function(spite_module_vendor target key)
+    if(key STREQUAL "miniaudio" AND target STREQUAL "SpiteAudio")
+        set(vendor_root "${Spite_SDK_ROOT}/source/external")
+    elseif(key STREQUAL "stb_rect_pack" AND target STREQUAL "SpiteAssetAuthoring")
+        set(vendor_root "${Spite_SDK_ROOT}/source/external/stb")
+    elseif(key STREQUAL "stb_image_write" AND (target STREQUAL "SpiteEditor" OR target STREQUAL "SpiteEngineTools"))
+        set(vendor_root "${Spite_SDK_ROOT}/source/external/stb")
+    else()
+        message(FATAL_ERROR "Unapproved SDK vendor key: ${target} ${key}")
+    endif()
+    target_include_directories("${target}" PRIVATE "${vendor_root}")
+endfunction()
+
+function(spite_configure_module target)
+    target_sources("${target}" PRIVATE "${Spite_SDK_ROOT}/internal/SourceArtifactIdentity.cpp")
+    file(READ "${Spite_SDK_ROOT}/sdk-manifest.json" spite_manifest)
+    string(JSON spite_gpu GET "${spite_manifest}" sourceCompatibility gpuContractId)
+    target_compile_definitions("${target}" PRIVATE "SPITE_SOURCE_GPU_CONTRACT_ID=\"${spite_gpu}\"")
+    set_target_properties("${target}" PROPERTIES
+        BUILD_WITH_INSTALL_RPATH TRUE INSTALL_RPATH "$ORIGIN")
+    target_link_options("${target}" PRIVATE -Wl,--disable-new-dtags)
+    target_compile_definitions("${target}" PRIVATE NDEBUG SPITE_DEBUG_BUILD=0)
+    if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+        target_compile_options("${target}" PRIVATE -fno-gnu-unique)
+    endif()
+endfunction()
+
+foreach(module IN ITEMS @MODULES@)
+    if(NOT TARGET Spite::${module})
+        set(image "libSpite${module}.so")
+        if(module STREQUAL "RenderPipeline")
+            set(image "Spite${module}.so")
+        endif()
+        add_library(Spite::${module} SHARED IMPORTED)
+        set_target_properties(Spite::${module} PROPERTIES
+            IMPORTED_LOCATION "${Spite_SDK_ROOT}/bin/${image}"
+            INTERFACE_INCLUDE_DIRECTORIES "${Spite_SDK_ROOT}/include;${Spite_SDK_ROOT}/include/spite"
+            INTERFACE_COMPILE_FEATURES cxx_std_23)
+    endif()
+endforeach()
+
+set_property(TARGET Spite::Ui APPEND PROPERTY INTERFACE_LINK_LIBRARIES Spite::UiRuntime)
+set_property(TARGET Spite::UiView APPEND PROPERTY INTERFACE_LINK_LIBRARIES Spite::UiRuntime)
+set_property(TARGET Spite::UiRendering APPEND PROPERTY INTERFACE_LINK_LIBRARIES Spite::UiRuntime Spite::UiGpuRuntime)

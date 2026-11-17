@@ -1,0 +1,6 @@
+* text=auto
+# shell scripts run under sh, which must not see CR
+*.sh eol=lf
+# Kept with LF endings in the engine repository too
+include/spite/rendering/GpuSharedTypes.hpp eol=lf
+include/spite/rendering/GraphicsTypes.hpp eol=lf
