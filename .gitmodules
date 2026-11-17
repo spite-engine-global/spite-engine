@@ -1,0 +1,9 @@
+[submodule "source/external/jolt"]
+	path = source/external/jolt
+	url = https://github.com/jrouwe/joltphysics
+[submodule "source/external/miniaudio"]
+	path = source/external/miniaudio
+	url = https://github.com/mackron/miniaudio
+[submodule "source/external/stb"]
+	path = source/external/stb
+	url = https://github.com/nothings/stb

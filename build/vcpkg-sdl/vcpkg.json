@@ -1,0 +1,12 @@
+{
+  "builtin-baseline": "a1cae005c39be7b18ba319fced856b68d7276271",
+  "dependencies": [
+    {
+      "name": "sdl3",
+      "features": [ "vulkan" ]
+    }
+  ],
+  "vcpkg-configuration": {
+    "overlay-triplets": [ "triplets" ]
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "dependencies": [
+    {
+      "name": "sdl3",
+      "platform": "!windows",
+      "features": [ "vulkan" ]
+    },
+    "vulkan",
+    "vulkan-memory-allocator",
+    "vulkan-memory-allocator-hpp",
+    {
+      "name": "assimp",
+      "features": [ "draco" ]
+    },
+    "nlohmann-json",
+    {
+      "name": "sqlite3",
+      "features": [ "tool" ]
+    },
+    "enkits",
+    "freetype",
+    {
+      "name": "msdfgen",
+      "default-features": false,
+      "features": [ "extensions" ]
+    },
+    {
+      "name": "harfbuzz",
+      "default-features": false
+    },
+    "gtest",
+    "shader-slang",
+    "stb"
+  ],
+  "builtin-baseline": "a1cae005c39be7b18ba319fced856b68d7276271",
+  "overrides": [
+    { "name": "shader-slang", "version": "2026.18.2" }
+  ],
+  "vcpkg-configuration": {
+    "overlay-triplets": [ "build/vcpkg-triplets" ]
+  }
+}

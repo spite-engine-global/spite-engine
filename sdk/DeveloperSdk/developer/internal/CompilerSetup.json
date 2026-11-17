@@ -1,0 +1,19 @@
+{
+  "format": 1,
+  "productVersion": "18.10.4",
+  "toolset": "14.51",
+  "minimumToolset": "14.51",
+  "mscVer": "1951",
+  "bootstrapperUrl": "https://download.visualstudio.microsoft.com/download/pr/2c69ffd0-d38e-457c-9c18-020fe133868c/f4ad61ca6e875e784d3e3e7412c6115d2c471220575ac1c908fa23fffc736761/vs_BuildTools.exe",
+  "sha256": "f4ad61ca6e875e784d3e3e7412c6115d2c471220575ac1c908fa23fffc736761",
+  "components": [
+    "Microsoft.VisualStudio.Workload.VCTools",
+    "Microsoft.VisualStudio.Component.VC.Tools.x86.x64",
+    "Microsoft.VisualStudio.Component.Windows11SDK.26100"
+  ],
+  "references": [
+    "https://learn.microsoft.com/en-us/visualstudio/releases/2026/release-history",
+    "https://learn.microsoft.com/en-us/cpp/overview/acquire-msvc",
+    "https://learn.microsoft.com/en-us/visualstudio/install/use-command-line-parameters-to-install-visual-studio"
+  ]
+}

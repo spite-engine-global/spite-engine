@@ -1,0 +1,42 @@
+{
+  "format": 1,
+  "python": {
+    "minimum": "3.11.8", "maximumExclusive": "3.15", "version": "3.14.10",
+    "windows-x86_64": {
+      "url": "https://www.python.org/ftp/python/3.14.10/python-3.14.10-embed-amd64.zip",
+      "sha256": "90905e64a840557d8c1bc4f5b74db3d7ee85e3ffb217611cac1c7813acea4159",
+      "root": "", "executable": "python.exe"
+    },
+    "linux-x86_64": {
+      "url": "https://github.com/astral-sh/python-build-standalone/releases/download/20261110/cpython-3.14.10%2B20261110-x86_64-unknown-linux-gnu-install_only_stripped.tar.gz",
+      "sha256": "c2ff2e97422f5d3896a16e0317fd212ba977bbf2688d93a6f7a03d817506bd30",
+      "root": "python", "executable": "bin/python3"
+    }
+  },
+  "ninja": {
+    "minimum": "1.11.0", "maximumExclusive": "2.0", "version": "1.13.1",
+    "windows-x86_64": {
+      "url": "https://github.com/ninja-build/ninja/releases/download/v1.13.1/ninja-win.zip",
+      "sha256": "26a40fa8595694dec2fad4911e62d29e10525d2133c9a4230b66397774ae25bf",
+      "root": "", "executable": "ninja.exe"
+    },
+    "linux-x86_64": {
+      "url": "https://github.com/ninja-build/ninja/releases/download/v1.13.1/ninja-linux.zip",
+      "sha256": "0830252db77884957a1a4b87b05a1e2d9b5f658b8367f82999a941884cbe0238",
+      "root": "", "executable": "ninja"
+    }
+  },
+  "cmake": {
+    "minimum": "4.2.2", "maximumExclusive": "4.4", "version": "4.2.2",
+    "windows-x86_64": {
+      "url": "https://github.com/Kitware/CMake/releases/download/v4.2.2/cmake-4.2.2-windows-x86_64.zip",
+      "sha256": "b71b3515bbba0b9b0e05852a3bcb82af548579fdcd6ba7a23f8608518c44bdde",
+      "root": "cmake-4.2.2-windows-x86_64", "executable": "bin/cmake.exe"
+    },
+    "linux-x86_64": {
+      "url": "https://github.com/Kitware/CMake/releases/download/v4.2.2/cmake-4.2.2-linux-x86_64.tar.gz",
+      "sha256": "893a5c7ca805234accafb0f1c940660822df1964413d612b5971816dd6e54eab",
+      "root": "cmake-4.2.2-linux-x86_64", "executable": "bin/cmake"
+    }
+  }
+}

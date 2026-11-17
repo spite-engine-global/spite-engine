@@ -1,0 +1,8 @@
+cmake_minimum_required(VERSION 3.25)
+project(SpiteUiRendering LANGUAGES CXX)
+find_package(Spite CONFIG REQUIRED)
+add_library(SpiteUiRendering SHARED UiViewRenderPassModule.cpp)
+target_compile_features(SpiteUiRendering PRIVATE cxx_std_23)
+target_compile_definitions(SpiteUiRendering PRIVATE SPITE_UI_RENDERING_BUILD_DLL)
+target_link_libraries(SpiteUiRendering PRIVATE Spite::Base Spite::Ecs Spite::Ui Spite::UiView Spite::Rendering Spite::Profiling Spite::UiRuntime Spite::UiGpuRuntime)
+spite_configure_module(SpiteUiRendering)
